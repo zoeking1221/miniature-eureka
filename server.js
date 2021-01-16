@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const express = require('express');
 const { create } = require('domain');
-// const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3001;
 
 // instantiate the server
 const app = express();
@@ -18,9 +18,24 @@ app.use(express.static('public'));
 
 
 
+// get request for notes.html file
+app.get('/notes', (req, res) => {
+    res.sendFile(path.join(__dirname, './Develop/public/notes.html'));
+})
+
+
+// get request for index.html page
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, './Develop/public/index.html'));
+});
+
+// get request for * 
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, './Develop/public/index.html'));
+  });
 
 
 // make server listen
-app.listen(3001, () => {
-    console.log(`API server now on port 3001!`);
+app.listen(PORT, () => {
+    console.log(`API server now on port ${PORT}!`);
 });
